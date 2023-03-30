@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/navbar.css" />
+    <link rel="stylesheet" href="styles/index.css" />
+    <title>Tasks module</title>
+    <style>
+      #taskFormPost,
+      #taskFormButtonClose {
+        display: none;
+      }
+
+      #getAllTasksh1 {
+        text-align: center;
+        padding: 10px;
+        margin: 10px;
+      }
+
+      /* Table CSS Start*/
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 1rem;
+      }
+
+      thead th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-align: center;
+        padding: 0.5rem;
+        border-bottom: 1px solid #ccc;
+        border: 1px solid rgb(51, 48, 48);
+      }
+
+      tbody tr td {
+        border: 1px solid rgb(136, 131, 131);
+      }
+
+      tbody td {
+        padding: 0.5rem;
+        border-bottom: 1px solid #ccc;
+        text-align: center;
+      }
+
+      .inputButton {
+        padding: 0.5rem;
+        border: 1px solid gray;
+        border-radius: 20px;
+      }
+
+      tbody td:nth-child(odd) {
+        background-color: none;
+      }
+
+      tbody td:nth-child(8) * {
+        /* border: 1px solid orange; */
+        font-size: 12px;
+        width: auto;
+        box-sizing: border-box;
+        padding: 10px;
+      }
+
+      tbody td:nth-child(9) * {
+        /* border: 1px solid orange; */
+        font-size: 12px;
+        width: auto;
+        box-sizing: border-box;
+        padding: 10px;
+      }
+
+      tbody td:last-child {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      tbody {
+        background-color: #fff;
+      }
+
+      tr:hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
+      }
+      /* Table CSS End. */
+    </style>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <button id="taskFormButtonOpen" class="button">Create Task</button>
+
+    <div class="forms" id="postFormDiv">
+      <form id="taskFormPost">
+        <div class="formsDivsNavbar">
+          <h1>Create Task</h1>
+          <button id="taskFormButtonClose" class="button">X</button>
+        </div>
+        <div class="formsDivs">
+          <label for="taskType">Enter Type : </label>
+          <select name="taskType" id="taskType" required>
+            <option value="">Enter Type</option>
+            <option value="BUG">BUG</option>
+            <option value="FEATURE">FEATURE</option>
+            <option value="STORY">STORY</option>
+          </select>
+        </div>
+
+        <div class="formsDivs">
+          <label for="taskDescription">Description : </label>
+          <input
+            type="text"
+            name="taskDescription"
+            id="taskDescription"
+            placeholder="Enter Description"
+            required
+          />
+        </div>
+
+        <div class="formsDivs">
+          <label for="taskStatus">Status : </label>
+          <select name="taskStatus" id="taskStatus" required>
+            <option value="">Enter Status</option>
+            <option value="INCOMPLETE">INCOMPLETE</option>
+            <option value="COMPLETED">COMPLETED</option>
+            <option value="ONGOING">ONGOING</option>
+          </select>
+        </div>
+
+        <div class="formsDivs">
+          <label for="taskPriority">Priority : </label>
+          <select name="taskPriority" id="taskPriority" required>
+            <option value="">Enter Priority</option>
+            <option value="HIGH">HIGH</option>
+            <option value="LOW">LOW</option>
+          </select>
+        </div>
+
+        <div class="formsDivs">
+          <label for="taskComment">Comment : </label>
+          <input
+            type="text"
+            id="taskComment"
+            name="taskComment"
+            placeholder="Enter Comment"
+            required
+          />
+        </div>
+
+        <input
+          type="submit"
+          id="task-submit"
+          class="formsButton"
+          value="POST"
+        />
+      </form>
+    </div>
+
+    <div id="getAllTasks">
+      <h1 id="getAllTasksh1">
+        Displaying tasks which does not belongs to any sprint.
+      </h1>
+
+      <div id="taskList">
+        <table>
+          <thead>
+            <tr>
+              <th>Task ID</th>
+              <th>Type</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>
+                <p>Priority</p>
+                <select id="prioritySelectSort">
+                  <option value="Sort By">Sort By</option>
+                  <option value="HIGH">High to Low</option>
+                  <option value="LOW">Low to High</option>
+                </select>
+              </th>
+              <th>Comment</th>
+              <th>User</th>
+              <th>Sprint ID</th>
+              <th>User ID</th>
+            </tr>
+          </thead>
+          <tbody id="task-list">
+            <!-- Dynamic content from JS. -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script src="scripts/tasks.js" type="module"></script>

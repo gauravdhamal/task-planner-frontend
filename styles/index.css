@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.forms {
+  display: none;
+  height: auto;
+  width: 40%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  padding: 20px 40px;
+  border-radius: 50px;
+  /* border: 1px solid red; */
+  background-color: wheat;
+}
+
+.formsDivs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid red; */
+  margin: 8px;
+}
+
+.formsDivs :nth-child(1) {
+  width: 30%;
+  /* border: 1px solid red; */
+  text-align: left;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.formsDivs :nth-child(2) {
+  width: 70%;
+  font-size: 12px;
+  margin-left: -10px;
+  border-radius: 10px;
+  border: 1px solid gray;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.formsButton {
+  font-size: 20px;
+  width: auto;
+  box-sizing: border-box;
+  border: 1px solid black;
+  padding: 10px 30px;
+  border-radius: 20px;
+  border: none;
+  background-color: rgb(96, 158, 96);
+  color: white;
+  font-style: normal;
+  font-weight: lighter;
+  align-self: center;
+  margin: 15px;
+  cursor: pointer;
+}
+
+.formsDivsNavbar {
+  /* border: 1px solid firebrick; */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.formsDivsNavbar h1 {
+  font-size: 30px;
+  width: 90%;
+  color: black;
+  text-align: center;
+}
+
+.formsDivsNavbar button {
+  background-color: black;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 100px;
+}
+
+/* Common CSS of POST open/close form for Task and User */
+.button {
+  align-self: flex-end;
+  margin: 60px;
+  border: 1px solid gray;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Styling for the sprint list container */
+.sprint {
+  display: flex;
+  flex-direction: column;
+}
+
+.sprint-tasks {
+  display: flex;
+  flex-direction: column;
+}
+
+.task {
+  display: flex;
+  flex-direction: column;
+}
+
+.sprint {
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+}
+
+.sprint-tasks {
+  padding: 10px;
+}
+
+.task {
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.task:hover {
+  background-color: #f9f9f9;
+  box-shadow: 0px 0px 5px #aaa;
+}
+
+.sprint:hover {
+  background-color: #f9f9f9;
+  box-shadow: 0px 0px 5px #aaa;
+}
+
+.sprint {
+  background-color: #fff;
+}
+
+.task {
+  background-color: #f1f1f1;
+}
