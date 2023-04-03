@@ -98,6 +98,15 @@
   cursor: pointer;
 }
 
+/* CSS for addToSpring,assignUser,viewTask button */
+
+.inputButton {
+  padding: 0.5rem;
+  border: 1px solid gray;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
 /* Styling for the sprint list container */
 .sprint {
   display: flex;

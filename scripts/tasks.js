@@ -4,7 +4,7 @@ document.querySelector("#navbar").innerHTML = navbar();
 
 // https://task-planner-backend-production.up.railway.app
 // http://localhost:8080
-const commonUrl = "https://task-planner-backend-production.up.railway.app";
+const commonUrl = "http://localhost:8080";
 
 let taskFormButtonOpen = document.getElementById("taskFormButtonOpen");
 let taskFormButtonClose = document.getElementById("taskFormButtonClose");

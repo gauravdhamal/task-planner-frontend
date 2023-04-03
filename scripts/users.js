@@ -3,7 +3,7 @@ import navbar from "../components/navbar.js";
 document.querySelector("#navbar").innerHTML = navbar();
 
 // https://task-planner-backend-production.up.railway.app
-const commonUrl = "https://task-planner-backend-production.up.railway.app";
+const commonUrl = "http://localhost:8080";
 
 let userFormButtonOpen = document.getElementById("userFormButtonOpen");
 let userFormButtonClose = document.getElementById("userFormButtonClose");
@@ -22,6 +22,13 @@ userFormButtonClose.addEventListener("click", () => {
   userFormButtonOpen.style.display = "block";
   userFormButtonClose.style.display = "none";
   postFormDiv.style.display = "none";
+});
+
+// Tasks close button code.
+let closeTasks = document.getElementById("closeTasks");
+let viewTasks = document.getElementById("viewTasks");
+closeTasks.addEventListener("click", () => {
+  viewTasks.style.display = "none";
 });
 
 // To get user data after creating user.
@@ -96,6 +103,26 @@ async function getAllUserByGender(gender) {
   }
 }
 
+async function getAllUsersSortByNames(value) {
+  let response = await fetch(commonUrl + `/users/all/sortByName/${value}`);
+  if (response.status == 200) {
+    let data = await response.json();
+    appendUsers(data);
+  } else {
+    window.alert(`No any users found to sort.`);
+  }
+}
+
+async function getAllTasksByUserId(userId) {
+  let response = await fetch(commonUrl + `/users/tasks/${userId}`);
+  if (response.status == 200) {
+    let data = await response.json();
+    return data;
+  } else {
+    window.alert(`No any tasks found for user ${userId}`);
+  }
+}
+
 async function main() {
   let arrayOfUsers = await getAllUsers();
   appendUsers(arrayOfUsers);
@@ -113,20 +140,69 @@ let appendUsers = (arrayOfUsers) => {
     const tdUsername = document.createElement("td");
     const tdRole = document.createElement("td");
     const tdGender = document.createElement("td");
+    const tdTasks = document.createElement("td");
+    const taskButton = document.createElement("button");
+    taskButton.textContent = "Open";
+    taskButton.setAttribute("class", "inputButton");
+    taskButton.style.backgroundColor = "skyblue";
+    taskButton.addEventListener("click", () => {
+      getAllTasksByUserId(item.userId).then((tasks) => {
+        if (tasks != undefined) {
+          viewTasks.style.display = "block";
+          appendTasksPerUser(tasks);
+        }
+      });
+    });
 
     tdUserId.textContent = item.userId;
     tdName.textContent = item.name;
     tdUsername.textContent = item.username;
     tdRole.textContent = item.role;
     tdGender.textContent = item.gender;
+    tdTasks.appendChild(taskButton);
 
     tr.appendChild(tdUserId);
     tr.appendChild(tdName);
     tr.appendChild(tdUsername);
     tr.appendChild(tdRole);
     tr.appendChild(tdGender);
+    tr.appendChild(tdTasks);
 
     userTableBody.appendChild(tr);
+  });
+};
+
+let appendTasksPerUser = (tasks) => {
+  const tasksTableBody = document.getElementById("viewTasksTableBody");
+  tasksTableBody.innerHTML = "";
+  tasks.forEach((task) => {
+    const tr = document.createElement("tr");
+
+    const taskIdTd = document.createElement("td");
+    taskIdTd.textContent = task.taskId;
+    tr.appendChild(taskIdTd);
+
+    const typeTd = document.createElement("td");
+    typeTd.textContent = task.type;
+    tr.appendChild(typeTd);
+
+    const descriptionTd = document.createElement("td");
+    descriptionTd.textContent = task.description;
+    tr.appendChild(descriptionTd);
+
+    const statusTd = document.createElement("td");
+    statusTd.textContent = task.status;
+    tr.appendChild(statusTd);
+
+    const priorityTd = document.createElement("td");
+    priorityTd.textContent = task.priority;
+    tr.appendChild(priorityTd);
+
+    const commentTd = document.createElement("td");
+    commentTd.textContent = task.comment;
+    tr.appendChild(commentTd);
+
+    tasksTableBody.appendChild(tr);
   });
 };
 
@@ -136,6 +212,17 @@ selectGender.addEventListener("change", () => {
   let genderValue = selectGender.value;
   if (genderValue == "MALE" || genderValue == "FEMALE") {
     getAllUserByGender(genderValue);
+  } else {
+    main();
+  }
+});
+
+let selectName = document.getElementById("selectName");
+
+selectName.addEventListener("change", () => {
+  let nameValue = selectName.value;
+  if (nameValue == "ASC" || nameValue == "DESC") {
+    getAllUsersSortByNames(nameValue);
   } else {
     main();
   }
