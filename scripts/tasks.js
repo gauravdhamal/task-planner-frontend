@@ -4,7 +4,7 @@ document.querySelector("#navbar").innerHTML = navbar();
 
 // https://task-planner-backend-production.up.railway.app
 // http://localhost:8080
-const commonUrl = "https://task-planner-backend-production.up.railway.app";
+const commonUrl = "http://localhost:8080";
 
 let taskFormButtonOpen = document.getElementById("taskFormButtonOpen");
 let taskFormButtonClose = document.getElementById("taskFormButtonClose");
@@ -152,6 +152,7 @@ function append(arrayOfTasks) {
       } else {
         // console.log("Button clicked!");
         addTaskToSprint(task.taskId, sprintCellInfo);
+        sprintCell.value = "";
       }
     });
 
@@ -175,8 +176,10 @@ function append(arrayOfTasks) {
         window.alert(`Enter UserId to continue...`);
       } else if (userDetailsCell.innerText != "Not Assigned") {
         window.alert(`User already assigned.`);
+        userCell.value = "";
       } else {
         assignTaskToUser(task.taskId, userCellInfo);
+        userCell.value = "";
       }
     });
     tableBody.appendChild(row);

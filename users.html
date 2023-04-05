@@ -40,26 +40,6 @@
         background-color: #f5f5f5;
       }
 
-      /* Display all tasks CSS. */
-      #viewTasks {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border: 0.4px solid gray;
-        width: 800px;
-        height: auto;
-        display: none;
-        box-sizing: border-box;
-        padding: 20px 40px;
-        border-radius: 50px;
-        /* border: 1px solid red; */
-        background-color: wheat;
-        overflow: auto;
-        max-height: 400px;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-      }
-
       /* Hide scrollbar */
       ::-webkit-scrollbar {
         display: none;
@@ -167,7 +147,7 @@
       <tbody></tbody>
     </table>
 
-    <div id="viewTasks">
+    <div id="viewTasks" class="viewAllTasksById">
       <div class="formsDivsNavbar">
         <h1>All tasks</h1>
         <button id="closeTasks" class="button">Close</button>

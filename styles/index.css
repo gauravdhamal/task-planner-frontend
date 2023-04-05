@@ -99,13 +99,34 @@
 }
 
 /* CSS for addToSpring,assignUser,viewTask button */
-
 .inputButton {
   padding: 0.5rem;
   border: 1px solid gray;
   border-radius: 20px;
   cursor: pointer;
 }
+/* End of CSS for addToSpring,assignUser,viewTask button*/
+
+/* Display all tasks CSS. */
+.viewAllTasksById {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0.4px solid gray;
+  width: 800px;
+  height: auto;
+  display: none;
+  box-sizing: border-box;
+  padding: 20px 40px;
+  border-radius: 50px;
+  /* border: 1px solid red; */
+  background-color: wheat;
+  overflow: auto;
+  max-height: 400px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+/* End of Display all tasks CSS. */
 
 /* Styling for the sprint list container */
 .sprint {

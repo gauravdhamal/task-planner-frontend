@@ -3,7 +3,7 @@ import navbar from "../components/navbar.js";
 document.querySelector("#navbar").innerHTML = navbar();
 
 // https://task-planner-backend-production.up.railway.app
-const commonUrl = "https://task-planner-backend-production.up.railway.app";
+const commonUrl = "http://localhost:8080";
 
 let userFormButtonOpen = document.getElementById("userFormButtonOpen");
 let userFormButtonClose = document.getElementById("userFormButtonClose");

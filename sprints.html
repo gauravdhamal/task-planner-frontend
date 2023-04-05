@@ -8,35 +8,103 @@
     <link rel="stylesheet" href="styles/index.css" />
     <title>Sprints data</title>
     <style>
-      #sprintForm,
-      #sprintFormButtonClose {
-        display: none;
+      table {
+        border-collapse: collapse;
+        width: 60%;
+        margin: auto;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+        color: #333;
+      }
+      #getAllSprintsh1 {
+        text-align: center;
+        padding: 10px;
+        margin: 10px;
       }
     </style>
   </head>
   <body>
     <div id="navbar"></div>
 
-    <div class="forms">
-      <button id="sprintFormButtonOpen">Create Sprint</button>
-      <form id="sprintForm">
-        <label for="sprint-name">Sprint Name : </label>
-        <input type="text" id="sprint-name" name="sprint-name" required />
+    <button id="sprintFormButtonOpen" class="button">Create Sprint</button>
 
-        <label for="sprint-startdate">Start Date : </label>
+    <div class="forms" id="postFormDiv">
+      <form id="sprintFormPost">
+        <div class="formsDivsNavbar">
+          <h1>Create Sprint</h1>
+          <button id="sprintFormButtonClose" class="button">X</button>
+        </div>
+
+        <div class="formsDivs">
+          <label for="sprintName">Sprint Name : </label>
+          <input type="text" id="sprintName" name="sprintName" required />
+        </div>
+
+        <div class="formsDivs">
+          <label for="sprintStartdate">Start Date : </label>
+          <input
+            type="date"
+            id="sprintStartdate"
+            name="sprintStartdate"
+            required
+          />
+        </div>
+
+        <div class="formsDivs">
+          <label for="sprintEnddate">End Date : </label>
+          <input type="date" id="sprintEnddate" name="sprintEnddate" required />
+        </div>
+
         <input
-          type="date"
-          id="sprint-startdate"
-          name="sprint-startdate"
-          required
+          type="submit"
+          id="sprintSubmit"
+          class="formsButton"
+          value="POST"
         />
-
-        <label for="sprint-enddate">End Date : </label>
-        <input type="date" id="sprint-enddate" name="sprint-enddate" required />
-
-        <input type="submit" id="sprint-submit" value="POST" />
       </form>
-      <button id="sprintFormButtonClose">Close Form</button>
+    </div>
+
+    <div id="getAllSprints">
+      <h1 id="getAllSprintsh1">Sprint List</h1>
+      <div>
+        <table id="sprintTable">
+          <thead>
+            <tr>
+              <th>Sprint ID</th>
+              <th>Name</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>View Tasks</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="viewTasks" class="viewAllTasksById">
+      <div class="formsDivsNavbar">
+        <h1>All Tasks</h1>
+        <button id="closeTasks" class="button">X</button>
+      </div>
+      <table>
+        <thead>
+          <th>Id</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Priority</th>
+          <th>Comment</th>
+        </thead>
+        <tbody id="viewTasksTableBody"></tbody>
+      </table>
     </div>
   </body>
 </html>
