@@ -9,7 +9,8 @@
     <title>Tasks module</title>
     <style>
       #taskFormPost,
-      #taskFormButtonClose {
+      #taskFormButtonClose,
+      #editTaskDynamic {
         display: none;
       }
 
@@ -179,6 +180,7 @@
               <th>User</th>
               <th>Sprint ID</th>
               <th>User ID</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody id="task-list">
@@ -186,6 +188,83 @@
           </tbody>
         </table>
       </div>
+    </div>
+
+    <div class="forms" id="editTaskDynamic">
+      <form id="editTaskDynamicForm">
+        <div class="formsDivsNavbar">
+          <h1>Update Task</h1>
+          <button id="editTaskDynamicButtonClose" class="button">X</button>
+        </div>
+        <div class="formsDivs">
+          <label for="oldTaskType">Old Type : </label>
+          <p style="border: none; font-size: 15px" id="oldTaskType"></p>
+        </div>
+
+        <div class="formsDivs">
+          <label for="oldTaskDescription">Old Description : </label>
+          <p style="border: none; font-size: 15px" id="oldTaskDescription"></p>
+        </div>
+        <div class="formsDivs">
+          <label for="newTaskDescription">New Description : </label>
+          <input
+            type="text"
+            name="newTaskDescription"
+            id="newTaskDescription"
+            placeholder="Enter Description"
+            required
+          />
+        </div>
+
+        <div class="formsDivs">
+          <label for="oldTaskStatus">Old Status : </label>
+          <p style="border: none; font-size: 15px" id="oldTaskStatus"></p>
+        </div>
+        <div class="formsDivs">
+          <label for="newTaskStatus">New Status : </label>
+          <select name="newTaskStatus" id="newTaskStatus" required>
+            <option value="">Enter Status</option>
+            <option value="INCOMPLETE">INCOMPLETE</option>
+            <option value="COMPLETED">COMPLETED</option>
+            <option value="ONGOING">ONGOING</option>
+          </select>
+        </div>
+
+        <div class="formsDivs">
+          <label for="oldTaskPriority">Old Priority : </label>
+          <p style="border: none; font-size: 15px" id="oldTaskPriority"></p>
+        </div>
+        <div class="formsDivs">
+          <label for="newTaskPriority">New Priority : </label>
+          <select name="newTaskPriority" id="newTaskPriority" required>
+            <option value="">Enter Priority</option>
+            <option value="HIGH">HIGH</option>
+            <option value="LOW">LOW</option>
+          </select>
+        </div>
+
+        <div class="formsDivs">
+          <label for="oldTaskComment">Old Comment : </label>
+          <p style="border: none; font-size: 15px" id="oldTaskComment"></p>
+        </div>
+        <div class="formsDivs">
+          <label for="newTaskComment">New Comment : </label>
+          <input
+            type="text"
+            id="newTaskComment"
+            name="newTaskComment"
+            placeholder="Enter Comment"
+            required
+          />
+        </div>
+
+        <input
+          type="submit"
+          class="formsButton"
+          value="Update"
+          style="margin: auto; display: block"
+        />
+      </form>
     </div>
   </body>
 </html>

@@ -2,9 +2,8 @@ import navbar from "../components/navbar.js";
 
 document.querySelector("#navbar").innerHTML = navbar();
 
-// https://task-planner-backend-production.up.railway.app
-// http://localhost:8080
-const commonUrl = "https://task-planner-backend-production.up.railway.app";
+const commonUrl = "http://localhost:8080";
+// const commonUrl = "https://task-planner-backend-production.up.railway.app";
 
 let taskFormButtonOpen = document.getElementById("taskFormButtonOpen");
 let taskFormButtonClose = document.getElementById("taskFormButtonClose");
@@ -88,6 +87,22 @@ async function main() {
 }
 
 main();
+
+let editTaskDynamic = document.getElementById("editTaskDynamic");
+let editTaskDynamicButtonClose = document.getElementById(
+  "editTaskDynamicButtonClose"
+);
+editTaskDynamicButtonClose.addEventListener("click", () => {
+  editTaskDynamic.style.display = "none";
+});
+
+let oldTaskType = document.getElementById("oldTaskType");
+let oldTaskDescription = document.getElementById("oldTaskDescription");
+let oldTaskStatus = document.getElementById("oldTaskStatus");
+let oldTaskPriority = document.getElementById("oldTaskPriority");
+let oldTaskComment = document.getElementById("oldTaskComment");
+
+let editTaskDynamicForm = document.getElementById("editTaskDynamicForm");
 
 function append(arrayOfTasks) {
   let tableBody = document.getElementById("task-list");
@@ -182,6 +197,76 @@ function append(arrayOfTasks) {
         userCell.value = "";
       }
     });
+
+    const actionCell = document.createElement("td");
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.setAttribute("class", "editButton");
+    editButton.addEventListener("click", () => {
+      let taskId = idCell.textContent;
+      editTaskDynamic.style.display = "block";
+      getTaskById(taskId).then((task) => {
+        if (task != undefined) {
+          oldTaskType.innerText = task.type;
+          oldTaskDescription.innerText = task.description;
+          oldTaskStatus.innerText = task.status;
+          oldTaskPriority.innerText = task.priority;
+          oldTaskComment.innerText = task.comment;
+
+          editTaskDynamicForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            let formData = new FormData(event.target);
+
+            let updatedTaskObject = {
+              taskId: "sometype",
+              description: "somedescription",
+              status: "somestatus",
+              priority: "somepriority",
+              comment: "somecomment",
+            };
+
+            let newTaskDescription = formData.get("newTaskDescription");
+            let newTaskStatus = formData.get("newTaskStatus");
+            let newTaskPriority = formData.get("newTaskPriority");
+            let newTaskComment = formData.get("newTaskComment");
+
+            updatedTaskObject.taskId = task.taskId;
+            updatedTaskObject.description = newTaskDescription;
+            updatedTaskObject.status = newTaskStatus;
+            updatedTaskObject.priority = newTaskPriority;
+            updatedTaskObject.comment = newTaskComment;
+
+            updateTaskDynamically(updatedTaskObject);
+            editTaskDynamicForm.reset();
+            editTaskDynamic.style.display = "none";
+          });
+        }
+      });
+    });
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.setAttribute("class", "deleteButton");
+    actionCell.append(editButton, " / ", deleteButton);
+    row.appendChild(actionCell);
+    deleteButton.addEventListener("click", () => {
+      let taskId = idCell.textContent;
+      const confirmed = confirm(
+        `Are you sure to want to delete the task ${taskId} ?`
+      );
+      if (confirmed) {
+        deleteTaskById(taskId).then((message) => {
+          if (message != undefined) {
+            window.alert(message);
+            main();
+          } else {
+            window.alert(message.details);
+          }
+        });
+      }
+    });
+
     tableBody.appendChild(row);
   });
 }
@@ -248,7 +333,6 @@ async function getUserByTaskId(taskId) {
 async function getAllTasksWithoutSprint() {
   let response = await fetch(commonUrl + "/tasks/withoutSprint");
   if (response.status == 200) {
-    console.log("getAllTasksWithoutSprint response ok.");
     let data = await response.json();
     return data;
   }
@@ -264,6 +348,55 @@ async function getAllTasksWithoutSprintSortByPriority(priority) {
     append(data);
   } else if (!response.ok) {
     throw new Error("Network response was not ok" + response.status);
+  }
+}
+
+async function deleteTaskById(taskId) {
+  let response = await fetch(commonUrl + `/tasks/delete/${taskId}`, {
+    method: "DELETE",
+  });
+  if (response.status == 202) {
+    let message = await response.text();
+    // console.log("message:", message);
+    return message;
+  } else {
+    let data = await response.json();
+    // console.log("data:", data);
+    return data;
+  }
+}
+
+async function getTaskById(taskId) {
+  let response = await fetch(commonUrl + `/tasks/get/${taskId}`);
+  if (response.status == 202) {
+    let data = await response.json();
+    return data;
+  } else {
+    window.alert(`Task not found with Id : ${taskId}`);
+  }
+}
+
+async function updateTaskDynamically(task) {
+  const options = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(task),
+  };
+
+  let response = await fetch(
+    commonUrl + `/tasks/update/${task.taskId}`,
+    options
+  );
+  let data = response.json();
+  if (response.status == 202) {
+    window.alert(`Task ${task.taskId} updated.`);
+    main();
+  } else if (data.description == `uri=/tasks/get/${task.taskId}`) {
+    window.alert(data.details);
+  } else {
+    window.alert(`Task update failed.`);
   }
 }
 

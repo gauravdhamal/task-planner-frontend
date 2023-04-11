@@ -177,3 +177,27 @@
 .task {
   background-color: #f1f1f1;
 }
+
+/* Edit/Delete button CSS Start */
+
+.editButton {
+  box-sizing: border-box;
+  padding: 7px 10px;
+  border-radius: 15px;
+  border: 1px solid green;
+  background-color: green;
+  cursor: pointer;
+  color: white;
+}
+
+.deleteButton {
+  box-sizing: border-box;
+  padding: 7px 10px;
+  border-radius: 15px;
+  border: 1px solid red;
+  background-color: red;
+  cursor: pointer;
+  color: white;
+}
+
+/* Edit/Delete button CSS End */
