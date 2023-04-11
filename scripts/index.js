@@ -2,8 +2,8 @@ import navbar from "../components/navbar.js";
 
 document.querySelector("#navbar").innerHTML = navbar();
 
-const commonUrl = "http://localhost:8080";
-// const commonUrl = "https://task-planner-backend-production.up.railway.app";
+// const commonUrl = "http://localhost:8080";
+const commonUrl = "https://task-planner-backend-production.up.railway.app";
 
 async function getSprintData() {
   let response = await fetch(commonUrl + "/sprints/all");
