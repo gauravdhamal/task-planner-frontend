@@ -130,6 +130,20 @@ async function main() {
 
 main();
 
+let updateUserDynamic = document.getElementById("updateUserDynamic");
+
+let userFormButtonCloseDynamic = document.getElementById(
+  "userFormButtonCloseDynamic"
+);
+userFormButtonCloseDynamic.addEventListener("click", () => {
+  updateUserDynamic.style.display = "none";
+});
+
+let oldUserName = document.getElementById("oldUserName");
+let oldUserUsername = document.getElementById("oldUserUsername");
+let oldUserRole = document.getElementById("oldUserRole");
+let oldUserGender = document.getElementById("oldUserGender");
+
 let appendUsers = (arrayOfUsers) => {
   const userTableBody = document.querySelector("#userTable tbody");
   userTableBody.innerHTML = "";
@@ -153,6 +167,35 @@ let appendUsers = (arrayOfUsers) => {
         }
       });
     });
+    const actionCell = document.createElement("td");
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.setAttribute("class", "editButton");
+    editButton.addEventListener("click", () => {
+      let userId = tdUserId.textContent;
+      updateUserDynamic.style.display = "block";
+      getUserById(userId).then((user) => {
+        console.log("user:", user);
+      });
+    });
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.setAttribute("class", "deleteButton");
+    actionCell.append(editButton, " / ", deleteButton);
+    deleteButton.addEventListener("click", () => {
+      let userId = tdUserId.textContent;
+      const confirmed = confirm(`Are you sure to delete user ${userId}`);
+      if (confirmed) {
+        deleteUserById(userId).then((message) => {
+          console.log("message:", message);
+          if (message != undefined) {
+            window.alert(message);
+          }
+          main();
+        });
+      }
+    });
 
     tdUserId.textContent = item.userId;
     tdName.textContent = item.name;
@@ -167,6 +210,7 @@ let appendUsers = (arrayOfUsers) => {
     tr.appendChild(tdRole);
     tr.appendChild(tdGender);
     tr.appendChild(tdTasks);
+    tr.appendChild(actionCell);
 
     userTableBody.appendChild(tr);
   });
@@ -227,3 +271,37 @@ selectName.addEventListener("change", () => {
     main();
   }
 });
+
+async function deleteUserById(userId) {
+  let response = await fetch(commonUrl + `/users/delete/${userId}`, {
+    method: "DELETE",
+  });
+  if (response.status == 202) {
+    let data = await response.text();
+    return data;
+  } else {
+    let data = await response.json();
+    window.alert(data.details);
+  }
+}
+
+async function getUserById(userId) {
+  let response = await fetch(commonUrl + `/users/get/${userId}`);
+  let data = await response.json();
+  if (response.status == 202) {
+    return data;
+  } else {
+    window.alert(data.details);
+  }
+}
+
+async function updateUserById(user) {
+  const options = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  };
+  let response = await fetch(commonUrl + ``, options);
+}

@@ -9,7 +9,8 @@
     <title>User module</title>
     <style>
       #userForm,
-      #userFormButtonClose {
+      #userFormButtonClose,
+      #updateUserDynamic {
         display: none;
       }
 
@@ -18,11 +19,17 @@
         padding: 30px;
       }
 
+      #userSubmitDynamic {
+        display: block;
+        margin: auto;
+      }
+
       table {
         border-collapse: collapse;
         width: 100%;
-        max-width: 800px;
+        max-width: 1000px;
         margin: auto;
+        /* border: 1px solid red; */
       }
 
       th,
@@ -142,6 +149,7 @@
             </select>
           </th>
           <th>View Tasks</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -163,6 +171,62 @@
         </thead>
         <tbody id="viewTasksTableBody"></tbody>
       </table>
+    </div>
+
+    <div class="forms" id="updateUserDynamic">
+      <form id="userFormDynamic">
+        <div class="formsDivsNavbar">
+          <h1>Update User</h1>
+          <button id="userFormButtonCloseDynamic" class="button">X</button>
+        </div>
+
+        <div class="formsDivs">
+          <label for="oldUserName">Old Name : </label>
+          <p id="oldUserName" style="border: none; font-size: 15px"></p>
+        </div>
+        <div class="formsDivs">
+          <label for="newUserName">New Name : </label>
+          <input
+            type="text"
+            id="newUserName"
+            name="newUserName"
+            placeholder="Enter Name"
+            required
+          />
+        </div>
+
+        <div class="formsDivs">
+          <label for="oldUserUsername">Old Username : </label>
+          <p id="oldUserUsername" style="border: none; font-size: 15px"></p>
+        </div>
+        <div class="formsDivs">
+          <label for="newUserUsername">New Username : </label>
+          <input
+            type="text"
+            id="newUserUsername"
+            name="newUserUsername"
+            placeholder="Enter Username"
+            required
+          />
+        </div>
+
+        <div class="formsDivs">
+          <label for="oldUserRole">Role : </label>
+          <p id="oldUserRole" style="border: none; font-size: 15px"></p>
+        </div>
+
+        <div class="formsDivs">
+          <label for="oldUserGender">Gender : </label>
+          <p id="oldUserGender" style="border: none; font-size: 15px"></p>
+        </div>
+
+        <input
+          type="submit"
+          id="userSubmitDynamic"
+          class="formsButton"
+          value="Update"
+        />
+      </form>
     </div>
   </body>
 </html>
